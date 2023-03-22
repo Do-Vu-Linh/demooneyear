@@ -1,5 +1,7 @@
 package com.spring.web.service.impl;
 
+import com.spring.web.exception.CustomException;
+import com.spring.web.exception.ErrorCode;
 import com.spring.web.model.Address;
 import com.spring.web.repository.AddressRepository;
 import com.spring.web.service.IAddressService;
@@ -16,6 +18,12 @@ public class AddressService implements IAddressService {
     public Optional<Address> findById(Long aLong) {
 
         return repository.findById(aLong);
+    }
+
+    @Override
+    public Address findByIdActual(Long aLong) {
+
+        return repository.findById(aLong).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND, ": AddressId doesn't exist"));
     }
 
     @Override
