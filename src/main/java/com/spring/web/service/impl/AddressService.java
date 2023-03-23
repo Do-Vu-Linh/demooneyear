@@ -27,6 +27,16 @@ public class AddressService implements IAddressService {
     }
 
     @Override
+    public Address findByIdActual2(Long aLong) {
+
+        Optional<Address> addressOpt = repository.findById(aLong);
+        if(!addressOpt.isPresent()) {
+            throw new CustomException(ErrorCode.NOT_FOUND, ": AddressId doesn't exist");
+        }
+        return addressOpt.get();
+    }
+
+    @Override
     public List<Address> findAll() {
 
        return repository.findAll();
